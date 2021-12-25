@@ -13,19 +13,16 @@ CREATE TABLE ports
 	updated_at datetime DEFAULT current_timestamp ON UPDATE current_timestamp
 ) comment 'таблица портов устройств'
  
-CALL viewing_devices(); 
+CALL fill_ports(); 
 
 SELECT * FROM ports  ORDER BY device_id ;
 SELECT count(1) FROM ports p ;
 SELECT count(1) FROM devs;
 
-USE shop;
-DROP TABLE IF EXISTS upcase_catalogs;
-CREATE TABLE upcase_catalogs (
-id SERIAL PRIMARY KEY,
-name VARCHAR(255) COMMENT 'Ќазвание раздела'
-) COMMENT = '–азделы интернет-магазина';
-
-CALL copy_catalogs();
-
-SELECT * FROM upcase_catalogs;
+-- замена number_ports = 24,32,64,96,144  на 2,4,8
+UPDATE devices 
+	SET number_ports = 16 WHERE number_ports = 144;
+UPDATE devices 
+	SET number_ports = 8 WHERE number_ports  IN (64,96);
+UPDATE devices 
+	SET number_ports = 4 WHERE number_ports IN (24,32);
