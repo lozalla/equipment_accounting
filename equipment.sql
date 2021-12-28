@@ -1,10 +1,23 @@
+/*
+ *1.  Проанализировать бизнес-логику приложения и создать структуру базы данных,
+которая может использоваться для хранения данных этого приложения. В базе
+данных должно быть минимум десять таблиц. Если таблиц получается более
+двадцати то рекомендуется ограничиться частью функционала приложения и не
+превышать это количество. В качестве отчета по этой части проекта необходимо
+приложить команды создания таблиц.
+ */
+
+/*
+ * Создается база данных - "Учет оборудованиия"
+ */
+
 CREATE DATABASE equipment_bd;
 USE equipment_bd;
 
 DROP TABLE IF EXISTS addresses;
 CREATE TABLE addresses
 (
-	house_id SERIAL PRIMARY KEY comment 'id дома (таблицы домов, улиц, городв пока не проектируются)',
+	house_id SERIAL PRIMARY KEY comment 'id дома (таблицы домов, улиц, городов не проектируются для простоты)',
 	prperty_type_id TINYINT UNSIGNED  NOT NULL comment 'тип недвижимости',
 	number_apartments SMALLINT UNSIGNED NOT NULL DEFAULT 0 comment 'количество квартир',
 	region_id SMALLINT UNSIGNED NOT NULL DEFAULT 0 comment 'id региона',
@@ -134,6 +147,8 @@ DROP TABLE IF EXISTS operators;
 CREATE TABLE operators
 (
 	id serial PRIMARY KEY ,
+	first_name varchar(250) NOT NULL  comment 'имя оператора',
+	last_name varchar(250) NOT NULL comment 'фамилия опретора',
 	email varchar(200) NOT NULL ,
 	created_at datetime DEFAULT current_timestamp,
 	updated_at datetime DEFAULT current_timestamp ON UPDATE current_timestamp
