@@ -165,3 +165,13 @@ CREATE TABLE operators_regions
 			один оператор может обслуживать тесколько регионов,
 			в регионе может быть несколько операторов '
 ;
+
+CREATE TABLE devices_operators 
+(
+	device_id bigint unsigned NOT NULL comment 'id оборудования',
+	operator_id bigint unsigned NOT NULL comment 'id оператора',
+	created_at datetime DEFAULT CURRENT_TIMESTAMP,
+    updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) comment 'таблица связи оборудование - оператор
+			работать с оборудованием могут разные операторы
+			оператор может работать с разным оборудованием';
