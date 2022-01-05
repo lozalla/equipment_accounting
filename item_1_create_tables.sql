@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS regions;
 CREATE TABLE regions 
 (
 	id SMALLINT UNSIGNED NOT NULL DEFAULT 0 PRIMARY KEY ,
-	name varchar(250) NOT NULL  comment 'название региона',
+	name varchar(250) UNIQUE NOT NULL  comment 'название региона',
 	created_at datetime DEFAULT current_timestamp,
 	updated_at datetime DEFAULT current_timestamp ON UPDATE current_timestamp
 ) comment 'таблица регионов'

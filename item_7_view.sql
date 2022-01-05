@@ -1,6 +1,7 @@
 -- представление для 
 -- проверки соответствия статуса оборудования "неисправное" количеству неисправных портов
 -- оборудование считается неисправным, если у него более 50% неисправных портов
+-- DROP VIEW IF EXISTS check_faulty_euipment;
 CREATE OR REPLACE VIEW check_faulty_euipment
 AS 
 SELECT 
@@ -24,10 +25,11 @@ HAVING check_faulty_eq_ports = 1
 ORDER BY r.id , d.id 
 ;
 
--- применение: можно сделать запрос, есть ли в определенно регионе несоответствие
+-- применение: можно сделать запрос, есть ли в определенном регионе несоответствие
 SELECT * FROM check_faulty_euipment WHERE region_id = 46;
 
 -- представление для отчета количество оборудования по операторам
+-- DROP VIEW IF EXISTS number_equipment_by_operator;
 CREATE OR REPLACE VIEW number_equipment_by_operator
 AS 
 SELECT 

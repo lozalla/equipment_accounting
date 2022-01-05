@@ -50,5 +50,14 @@ INSERT INTO devices_operators (device_id, operator_id) VALUES (1,27);
 INSERT INTO devices_operators (device_id, operator_id) VALUES (1,1);
 INSERT INTO devices_operators (device_id, operator_id) VALUES (400,40);
 
+DELETE FROM devices_operators WHERE device_id = 400 AND operator_id = 40;
+
+ 
+
+
+
+
+
+
 UPDATE devices_operators SET device_id = 1 WHERE operator_id = 28;
 
