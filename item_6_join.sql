@@ -1,18 +1,23 @@
+/*
+ * Создать два сложных запроса с использованием объединения JOIN и без использования подзапросов
+ */
+
+-- Создаются запросы, аналогичные п.5 (для проверки корректности результатов)
+
+USE equipment_bd;
+
 -- количество оборудования по регионам
 SELECT 
 r.id 
 , r.name 
-, count(DISTINCT a.house_id ) AS amount_address
-, group_concat(DISTINCT a.house_id) l_address
-, count(DISTINCT da.device_id) AS amount_device
+, count(DISTINCT da.device_id) AS device_by_region
 FROM regions r 
 	LEFT JOIN addresses a 
 	ON r.id = a.region_id 
 		LEFT JOIN devices_addresses da 
 		ON da.address_id = a.house_id 
 GROUP BY r.id 
-HAVING amount_device = 0
-ORDER BY amount_device DESC 
+ORDER BY device_by_region DESC 
 ;
  
 

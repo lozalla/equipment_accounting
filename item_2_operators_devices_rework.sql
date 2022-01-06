@@ -4,7 +4,7 @@ SELECT count(1) FROM devices_operators;
 SELECT operator_id , device_id FROM devices_operators ORDER BY operator_id , device_id ; 
 SELECT * FROM operators_regions WHERE operator_id = 13 ORDER BY operator_id ;
 
--- проверяем есть ли оборудование, регион которого не находится в списке регионов операторов
+-- ГЇГ°Г®ГўГҐГ°ГїГҐГ¬ ГҐГ±ГІГј Г«ГЁ Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГҐ, Г°ГҐГЈГЁГ®Г­ ГЄГ®ГІГ®Г°Г®ГЈГ® Г­ГҐ Г­Г ГµГ®Г¤ГЁГІГ±Гї Гў Г±ГЇГЁГ±ГЄГҐ Г°ГҐГЈГЁГ®Г­Г®Гў Г®ГЇГҐГ°Г ГІГ®Г°Г®Гў
 SELECT 
 	do.device_id AS device_id,
 	do.operator_id AS device_operator,
@@ -24,7 +24,7 @@ ORDER  BY device_id, device_operator
 ;
 
 
--- временная таблица с неправильными данными, т.е. оборудование, регион которого не находится в списке регионов операторов
+-- ГўГ°ГҐГ¬ГҐГ­Г­Г Гї ГІГ ГЎГ«ГЁГ¶Г  Г± Г­ГҐГЇГ°Г ГўГЁГ«ГјГ­Г»Г¬ГЁ Г¤Г Г­Г­Г»Г¬ГЁ, ГІ.ГҐ. Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГҐ, Г°ГҐГЈГЁГ®Г­ ГЄГ®ГІГ®Г°Г®ГЈГ® Г­ГҐ Г­Г ГµГ®Г¤ГЁГІГ±Гї Гў Г±ГЇГЁГ±ГЄГҐ Г°ГҐГЈГЁГ®Г­Г®Гў Г®ГЇГҐГ°Г ГІГ®Г°Г®Гў
 DROP TABLE IF EXISTS  no_math_address_operator_device_temp;
 CREATE TEMPORARY TABLE no_math_address_operator_device_temp
 AS 
@@ -48,7 +48,7 @@ ORDER  BY device_id, device_operator )
 
 SELECT * FROM no_math_address_operator_device_temp;
 
--- скопируем данные во временную таблицу и далее будем работать с ней
+-- Г±ГЄГ®ГЇГЁГ°ГіГҐГ¬ Г¤Г Г­Г­Г»ГҐ ГўГ® ГўГ°ГҐГ¬ГҐГ­Г­ГіГѕ ГІГ ГЎГ«ГЁГ¶Гі ГЁ Г¤Г Г«ГҐГҐ ГЎГіГ¤ГҐГ¬ Г°Г ГЎГ®ГІГ ГІГј Г± Г­ГҐГ©
 DROP TABLE IF EXISTS devices_operators_temp;
 CREATE TEMPORARY TABLE  devices_operators_temp
 AS 
@@ -59,10 +59,10 @@ SELECT * FROM devices_operators_temp;
 -- SELECT operator_id FROM operators_regions WHERE region_id = 1 ORDER BY rand() LIMIT 1;
 
 
--- процедура проходит по строкам таблицы no_math_address_operator_device_temp, 
--- где собраны операторы и оборудования с разными регионами
--- выбирает случайного оператора из региона ооборудования
--- и обновляет соответствующую строку таблицы devices_operators_temp
+-- ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г  ГЇГ°Г®ГµГ®Г¤ГЁГІ ГЇГ® Г±ГІГ°Г®ГЄГ Г¬ ГІГ ГЎГ«ГЁГ¶Г» no_math_address_operator_device_temp, 
+-- ГЈГ¤ГҐ Г±Г®ГЎГ°Г Г­Г» Г®ГЇГҐГ°Г ГІГ®Г°Г» ГЁ Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГї Г± Г°Г Г§Г­Г»Г¬ГЁ Г°ГҐГЈГЁГ®Г­Г Г¬ГЁ
+-- ГўГ»ГЎГЁГ°Г ГҐГІ Г±Г«ГіГ·Г Г©Г­Г®ГЈГ® Г®ГЇГҐГ°Г ГІГ®Г°Г  ГЁГ§ Г°ГҐГЈГЁГ®Г­Г  Г®Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГї
+-- ГЁ Г®ГЎГ­Г®ГўГ«ГїГҐГІ Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГѕГ№ГіГѕ Г±ГІГ°Г®ГЄГі ГІГ ГЎГ«ГЁГ¶Г» devices_operators_temp
 delimiter //
 DROP PROCEDURE IF EXISTS update_devices_operators//
 CREATE PROCEDURE update_devices_operators()
@@ -72,37 +72,37 @@ BEGIN
 	DECLARE operator bigint UNSIGNED DEFAULT 1;
 	DECLARE region SMALLINT UNSIGNED DEFAULT 1;
 	DECLARE rand_operator bigint UNSIGNED DEFAULT 1;
-	-- объявляем курсор для таблицы no_math_address_operator_device_temp
-	-- будем считывать оператора, оборудование и регион оператора
+	-- Г®ГЎГєГїГўГ«ГїГҐГ¬ ГЄГіГ°Г±Г®Г° Г¤Г«Гї ГІГ ГЎГ«ГЁГ¶Г» no_math_address_operator_device_temp
+	-- ГЎГіГ¤ГҐГ¬ Г±Г·ГЁГІГ»ГўГ ГІГј Г®ГЇГҐГ°Г ГІГ®Г°Г , Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГҐ ГЁ Г°ГҐГЈГЁГ®Г­ Г®ГЇГҐГ°Г ГІГ®Г°Г 
 	DECLARE curcat CURSOR FOR SELECT device_id, device_operator, device_region FROM no_math_address_operator_device_temp ;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET is_end = 1;
 	OPEN curcat;
 	CYCLE:LOOP 
-		-- считываем оператора, оборудование и регион
+		-- Г±Г·ГЁГІГ»ГўГ ГҐГ¬ Г®ГЇГҐГ°Г ГІГ®Г°Г , Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГҐ ГЁ Г°ГҐГЈГЁГ®Г­
 		FETCH curcat INTO device, operator, region; 
 		IF is_end THEN LEAVE CYCLE;
 		END IF;
-		-- случайным образом выбираем оператора из заданного региона
+		-- Г±Г«ГіГ·Г Г©Г­Г»Г¬ Г®ГЎГ°Г Г§Г®Г¬ ГўГ»ГЎГЁГ°Г ГҐГ¬ Г®ГЇГҐГ°Г ГІГ®Г°Г  ГЁГ§ Г§Г Г¤Г Г­Г­Г®ГЈГ® Г°ГҐГЈГЁГ®Г­Г 
 	/*
 		SET rand_device = ifnull((SELECT da.device_id 
 									FROM addresses a LEFT JOIN devices_addresses da 
 									ON a.house_id = da.address_id WHERE a.region_id = region 
 									ORDER BY rand()	DESC LIMIT 1),1);*/
 		SET rand_operator = ifnull((SELECT operator_id FROM operators_regions WHERE region_id = region ORDER BY rand() LIMIT 1),1);
-		-- для заданных оператора и оборудования обновляем строку в таблице devices_operators_temp 
+		-- Г¤Г«Гї Г§Г Г¤Г Г­Г­Г»Гµ Г®ГЇГҐГ°Г ГІГ®Г°Г  ГЁ Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГї Г®ГЎГ­Г®ГўГ«ГїГҐГ¬ Г±ГІГ°Г®ГЄГі Гў ГІГ ГЎГ«ГЁГ¶ГҐ devices_operators_temp 
 		UPDATE devices_operators_temp
 			SET operator_id = rand_operator WHERE (operator_id = operator) AND (device_id = device);
 	END LOOP CYCLE;
 	CLOSE curcat;
 END//
 
--- обновляем таблицу devices_operators_temp, т.е. для каждого оператора ищем оборудование из его региона 
+-- Г®ГЎГ­Г®ГўГ«ГїГҐГ¬ ГІГ ГЎГ«ГЁГ¶Гі devices_operators_temp, ГІ.ГҐ. Г¤Г«Гї ГЄГ Г¦Г¤Г®ГЈГ® Г®ГЇГҐГ°Г ГІГ®Г°Г  ГЁГ№ГҐГ¬ Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГҐ ГЁГ§ ГҐГЈГ® Г°ГҐГЈГЁГ®Г­Г  
 CALL update_devices_operators();
 
 SELECT count(1) FROM devices_operators_temp;
 
 
--- снова проверяем есть ли оборудование, регион которого не находится в списке регионов операторов
+-- Г±Г­Г®ГўГ  ГЇГ°Г®ГўГҐГ°ГїГҐГ¬ ГҐГ±ГІГј Г«ГЁ Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГҐ, Г°ГҐГЈГЁГ®Г­ ГЄГ®ГІГ®Г°Г®ГЈГ® Г­ГҐ Г­Г ГµГ®Г¤ГЁГІГ±Гї Гў Г±ГЇГЁГ±ГЄГҐ Г°ГҐГЈГЁГ®Г­Г®Гў Г®ГЇГҐГ°Г ГІГ®Г°Г®Гў
 SELECT 
 	do.device_id AS device_id,
 	do.operator_id AS device_operator,
@@ -121,7 +121,7 @@ WHERE a.region_id NOT IN (SELECT region_id FROM operators_regions WHERE operator
 ORDER  BY device_id, device_operator
 ;
 
--- проверим, есть ли оборудование без оператора
+-- ГЇГ°Г®ГўГҐГ°ГЁГ¬, ГҐГ±ГІГј Г«ГЁ Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГҐ ГЎГҐГ§ Г®ГЇГҐГ°Г ГІГ®Г°Г 
 SELECT 
 	d.id AS device_id,
 	do.operator_id 
@@ -130,7 +130,7 @@ FROM devices d
 	ON d.id = do.device_id 
 WHERE isnull(do.operator_id) 
 
--- создаем временную таблицу и вставляем в нее все device_id, у которых нет операторов
+-- Г±Г®Г§Г¤Г ГҐГ¬ ГўГ°ГҐГ¬ГҐГ­Г­ГіГѕ ГІГ ГЎГ«ГЁГ¶Гі ГЁ ГўГ±ГІГ ГўГ«ГїГҐГ¬ Гў Г­ГҐГҐ ГўГ±ГҐ device_id, Гі ГЄГ®ГІГ®Г°Г»Гµ Г­ГҐГІ Г®ГЇГҐГ°Г ГІГ®Г°Г®Гў
 DROP TABLE IF EXISTS device_without_operators_temp;
 CREATE TEMPORARY TABLE device_without_operators_temp
 AS 
@@ -144,7 +144,7 @@ AS
 	WHERE isnull(do.operator_id) 
 );
 
--- генерируем для них операторов - min из операторов того же региона
+-- ГЈГҐГ­ГҐГ°ГЁГ°ГіГҐГ¬ Г¤Г«Гї Г­ГЁГµ Г®ГЇГҐГ°Г ГІГ®Г°Г®Гў - min ГЁГ§ Г®ГЇГҐГ°Г ГІГ®Г°Г®Гў ГІГ®ГЈГ® Г¦ГҐ Г°ГҐГЈГЁГ®Г­Г 
 DROP TABLE IF EXISTS generate_rand_operators_from_same_regoin;
 CREATE TEMPORARY TABLE generate_rand_operators_from_same_regoin
 AS (
@@ -178,7 +178,7 @@ SELECT device_id, operator_id FROM devices_operators_temp
 UNION ALL SELECT device_id, operator_id FROM  device_without_operators_temp
 ORDER BY device_id;
 
--- очищаем таблицу devices_operators и вставляем в нее новые данные
+-- Г®Г·ГЁГ№Г ГҐГ¬ ГІГ ГЎГ«ГЁГ¶Гі devices_operators ГЁ ГўГ±ГІГ ГўГ«ГїГҐГ¬ Гў Г­ГҐГҐ Г­Г®ГўГ»ГҐ Г¤Г Г­Г­Г»ГҐ
 DELETE FROM devices_operators;
 
 INSERT INTO devices_operators (device_id, operator_id)
@@ -189,7 +189,7 @@ INSERT INTO devices_operators (device_id, operator_id)
 
 SELECT * FROM devices_operators;
 
--- проверяем есть ли оборудование, регион которого не находится в списке регионов операторов
+-- ГЇГ°Г®ГўГҐГ°ГїГҐГ¬ ГҐГ±ГІГј Г«ГЁ Г®ГЎГ®Г°ГіГ¤Г®ГўГ Г­ГЁГҐ, Г°ГҐГЈГЁГ®Г­ ГЄГ®ГІГ®Г°Г®ГЈГ® Г­ГҐ Г­Г ГµГ®Г¤ГЁГІГ±Гї Гў Г±ГЇГЁГ±ГЄГҐ Г°ГҐГЈГЁГ®Г­Г®Гў Г®ГЇГҐГ°Г ГІГ®Г°Г®Гў
 SELECT 
 	do.device_id AS device_id,
 	do.operator_id AS device_operator,
@@ -207,13 +207,4 @@ FROM devices_operators do
 WHERE a.region_id NOT IN (SELECT region_id FROM operators_regions WHERE operator_id = do.operator_id)
 ORDER  BY device_id, device_operator
 ;
-
-
-
-
-
-
-
-
-
 

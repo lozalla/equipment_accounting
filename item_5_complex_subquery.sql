@@ -1,3 +1,9 @@
+/*
+ *  5. Создать два сложных (многотабличных) запроса с использованием подзапросов.
+ */
+
+USE equipment_bd;
+
 -- количество оборудования по регионам
 SELECT 
 	(SELECT a2.region_id FROM addresses a2 WHERE a2.house_id = da.address_id) AS region_id

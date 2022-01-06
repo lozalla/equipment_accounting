@@ -1,3 +1,9 @@
+/*
+ *  9. Создать триггер
+ */
+
+USE equipment_bd;
+
 -- проверка условия: оператор и оборудование имеют один регион
 
 delimiter //
@@ -35,22 +41,28 @@ BEGIN
 END //
 
 
--- проверка
+-- поиск корректных данных
+-- поиск региона для оборудования
 SELECT 
 	DISTINCT a.region_id
 FROM devices_addresses da JOIN addresses a ON da.address_id = a.house_id 
-WHERE da.device_id = 1;
+WHERE da.device_id = 2;
 
+-- поиск операторов из этого региона
 SELECT 
-	DISTINCT or2.region_id 
-FROM operators_regions or2 WHERE  or2.operator_id = 40;
+	DISTINCT or2.operator_id 
+FROM operators_regions or2 
+WHERE  or2.region_id = 19
+ORDER BY or2.operator_id 
+;
 
 						
-INSERT INTO devices_operators (device_id, operator_id) VALUES (1,27);
-INSERT INTO devices_operators (device_id, operator_id) VALUES (1,1);
-INSERT INTO devices_operators (device_id, operator_id) VALUES (400,40);
+INSERT INTO devices_operators (device_id, operator_id) VALUES (1,27); -- недопустимые данные
+INSERT INTO devices_operators (device_id, operator_id) VALUES (1,3); -- допустимые данные
+UPDATE devices_operators SET device_id = 2 WHERE operator_id = 8; -- недопустимые данные
+UPDATE devices_operators SET device_id = 2 WHERE operator_id = 10; -- допустимые данные
 
-DELETE FROM devices_operators WHERE device_id = 400 AND operator_id = 40;
+
 
  
 
@@ -59,5 +71,5 @@ DELETE FROM devices_operators WHERE device_id = 400 AND operator_id = 40;
 
 
 
-UPDATE devices_operators SET device_id = 1 WHERE operator_id = 28;
+
 

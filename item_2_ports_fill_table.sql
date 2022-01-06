@@ -1,4 +1,7 @@
 -- заполенние таблицы ports
+
+USE equipment_bd;
+
 delimiter //
 DROP PROCEDURE IF EXISTS fill_ports//
 /*
@@ -31,6 +34,8 @@ BEGIN
 	END LOOP CYCLE;
 	CLOSE curcat;
 END//
+
+DELETE FROM ports;
 
 CALL fill_ports(); 
 

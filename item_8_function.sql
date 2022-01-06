@@ -1,3 +1,10 @@
+/*
+ *  8. Создать пользовательскую функцию
+ */
+
+USE equipment_bd;
+-- функция возвращает количество неисправных портов оборудования из таблицы ports
+-- применялась при создании представления (п.7)
 delimiter //
 DROP FUNCTION IF EXISTS get_amount_faulty_ports //
 CREATE FUNCTION get_amount_faulty_ports(device_id bigint UNSIGNED)
