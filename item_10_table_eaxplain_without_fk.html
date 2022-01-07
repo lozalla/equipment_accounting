@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="12">EXPLAIN <br>SELECT <br>	r.id <br>	, r.name<br>	, count(DISTINCT da.device_id) AS device_by_region<br>	, count(DISTINCT if(isnull(da.device_id), NULL, concat_ws('_', p.device_id, p.number_port))) AS total_ports<br>	, count(DISTINCT IF(p.technical_status_id = 1 , concat_ws('_', p.device_id, p.number_port), NULL)) AS busy_ports<br> 	, count(DISTINCT IF(p.technical_status_id = 2 , concat_ws('_', p.device_id, p.number_port), NULL)) AS free_ports<br> 	, count(DISTINCT IF(p.technical_status_id = 3 , concat_ws('_', p.device_id, p.number_port), NULL)) AS faulty_ports<br> 	FROM regions r <br>		LEFT JOIN addresses a <br>		ON a.region_id = r.id <br>			LEFT JOIN devices_addresses da <br>			ON da.address_id = a.house_id <br>				LEFT JOIN ports p <br>				ON da.device_id = p.device_id <br> 	GROUP BY r.id WITH ROLLUP <br> 	ORDER BY r.id  <br></th></tr><tr><th>id</th><th>select_type</th><th>table</th><th>partitions</th><th>type</th><th>possible_keys</th><th>key</th><th>key_len</th><th>ref</th><th>rows</th><th>filtered</th><th>Extra</th></tr><tr class="odd"><td>1</td><td>SIMPLE</td><td>r</td><td>&nbsp;</td><td>index</td><td>PRIMARY,name</td><td>name</td><td>1002</td><td>&nbsp;</td><td>20</td><td>100</td><td>Using index; Using temporary; Using filesort</td></tr>
+<tr><td>1</td><td>SIMPLE</td><td>a</td><td>&nbsp;</td><td>ALL</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>500</td><td>100</td><td>Using where; Using join buffer (hash join)</td></tr>
+<tr class="odd"><td>1</td><td>SIMPLE</td><td>da</td><td>&nbsp;</td><td>ref</td><td>devices_addresses_address_fk</td><td>devices_addresses_address_fk</td><td>8</td><td>equipment_bd.a.house_id</td><td>7</td><td>100</td><td>&nbsp;</td></tr>
+<tr><td>1</td><td>SIMPLE</td><td>p</td><td>&nbsp;</td><td>ref</td><td>devices_ports_fk</td><td>devices_ports_fk</td><td>8</td><td>equipment_bd.da.device_id</td><td>7</td><td>100</td><td>&nbsp;</td></tr>
+</table></body></html>
